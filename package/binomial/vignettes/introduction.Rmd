@@ -1,0 +1,81 @@
+---
+title: "Getting Started with binomial"
+author: "Justin Han"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to binomial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(collapse = T, comment = "#>")
+library(binomial)
+```
+
+## Binomial Distribution
+
+The Binomial distribution is perhaps the most famous probability distribution among discrete random variables. This is the theoretical probability model that we use when calculating probabilities about the number of successes in a fixed number of random trials performed under identical conditions (assuming a constant probability of success on each trial).
+
+
+## `"binomial"`
+
+The package `"binomial"` is an implementation for calculating the basic properties of a binomial random variable and to visualize its probability distrbution as well as its cumulative probability distribution. 
+
+## Getting Started
+
+A classic example of a binomial random variable X involves the number of Heads (or Tails) that you get when tossing a coin n ≥ 0 times. Say you are interested in finding the probability of getting three heads in five tosses of a fair coin: P(X = 3 heads in 5 tosses). We can find the answer by using the `bin_probability()` function:
+
+```{r}
+bin_probability(success = 3, trials = 5, prob = 0.5)
+```
+
+However, say you are interested in knowing the number of combinations in which you can get 3 heads in 5 tosses rather than the probability. You can find this by using the `bin_choose()` function: 
+
+```{r}
+bin_choose(n = 5, k = 3)
+```
+
+where n is the number of trials and k is the number of successes. 
+
+## The Probability Distribution
+
+Going back to the example above, if you wanted to see the probabilities of getting not just 3 heads but all possible number of heads in 5 trials (i.e. 0, 1, 2, 3, 4, 5 heads), calling the `bin_probability()` function for each case is certainly an option, but that can get repetitive. Instead, you can use the `bin_distribution()`function to get the same solution:
+
+```{r}
+bin_distribution(trials = 5, prob = 0.5)
+```
+
+What nice about this is that not only do you get to save yourself some time, you can also call the function `plot()` to see a visual illustration of the probability distribution:
+
+```{r}
+dis1 <- bin_distribution(trials = 5, prob = 0.5) 
+plot(dis1)
+```
+
+## The Cumulative Probability Distribution
+
+If you are interested in seeing the cumulative probabilities, you can call the function `bin_cumulative()`. Doing so will produce the same results as the `bin_distribution()` function but with an additional column of cumulative distributions: 
+
+```{r}
+bin_cumulative(trials = 5, prob = 0.5)
+```
+
+Additionally, you can see a graph of the cumulative probability distribution by calling the `plot()` function: 
+
+```{r}
+dis2 <- bin_cumulative(trials = 5, prob = 0.5) 
+plot(dis2)
+```
+
+## Properties of the Binomial Random Variable
+
+Again, going back to our initial example of tossing a fair coin, you can actually find many properties such as the mean, variance, mode, skewness, and kurtosis. To do this, simply call the `summary()` function:
+
+```{r}
+bin1 <- bin_variable(trials = 5, p = 0.5) 
+summary(bin1)
+```
+
+These functions can be applied to many different cases, not just for a fair coin. 

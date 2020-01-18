@@ -1,0 +1,6 @@
+^Meta$
+^doc$
+^README.md
+^devtools-flow.R
+^.*\.Rproj$
+^\.Rproj\.user$
